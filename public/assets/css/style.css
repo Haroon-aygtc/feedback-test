@@ -1,0 +1,2024 @@
+@charset "UTF-8";
+/*----------------------------------------------------
+
+1. Global Area
+2. Header Section
+=====================================================================*/
+/*=========
+Font load
+===========*/
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,531;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,531;1,600;1,700;1,800;1,900&display=swap");
+/* Default LTR */
+body.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+/* RTL */
+body.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+
+
+.steps-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.steps-list {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.steps-item {
+  width: 24px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.steps-item.active {
+  background-color: #ffffff; /* Active step color */
+}
+
+.steps-item.completed {
+  background-color: #D39931; /* Completed step color */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: inherit;
+  border-radius: 50%;
+}
+
+
+
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Jost", sans-serif;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden; /* Disable scrolling */
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column; /* Stack steps and form vertically */
+  justify-content: flex-start;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  box-sizing: border-box;
+  overflow: auto; /* Prevent scrolling */
+}
+
+/* Ensure the steps container takes minimal space at the top */
+.steps-container {
+  text-align: center;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.steps-container {
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.form-panel {
+  flex: 1; /* Allow to grow and take available space */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+
+.job-style-content {
+  display: flex;
+  flex-direction: row; /* Layout children in a row */
+  width: 100%;
+  margin: 0 auto; /* Center content horizontally */
+  box-sizing: border-box;
+  height: 100vh;
+
+}
+
+/* Adjustments for .job-style-content on screens 1024px and below */
+@media (max-width: 1024px) {
+  .job-style-content {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+
+
+
+
+
+
+/* Flex items (labels) */
+.service-review label {
+  flex: 1 1 calc(50% - 15px) !important; /* Default to 2 items per row, considering gap */
+  box-sizing: border-box !important; /* Include padding and border in element’s total width and height */
+  display: flex !important;
+  align-items: center !important; /* Center content vertically */
+  justify-content: center !important; /* Center content horizontally */
+  padding: 10px !important; /* Add padding if needed */
+  max-width: calc(50% - 15px) !important; /* Ensure max width is calculated correctly */
+  /* Optional: adjust height if needed */
+}
+
+/* Responsive adjustments for large screens */
+@media (min-width: 1200px) {
+  .service-review label {
+    flex: 1 1 calc(25% - 15px) !important; /* 4 per row on extra-large screens */
+    max-width: calc(25% - 15px) !important; /* Ensure max width is calculated correctly */
+  }
+}
+
+/* Styles for medium screens */
+@media (max-width: 1024px) {
+  .service-review label {
+    flex: 1 1 calc(33.33% - 15px) !important; /* 3 per row on medium screens */
+    max-width: calc(33.33% - 15px) !important; /* Ensure max width is calculated correctly */
+  }
+}
+
+/* Styles for small screens */
+@media (max-width: 768px) {
+  .service-review label {
+    flex: 1 1 calc(50% - 15px) !important; /* 2 per row on small screens */
+    max-width: calc(50% - 15px) !important; /* Ensure max width is calculated correctly */
+  }
+}
+
+/* Styles for extra small screens */
+@media (max-width: 576px) {
+  .service-review label {
+    flex: 1 1 calc(50% - 15px) !important; /* 2 per row on extra small screens */
+    max-width: calc(50% - 15px) !important; /* Ensure max width is calculated correctly */
+  }
+}
+
+/* Styles for very small screens */
+@media (max-width: 320px) {
+  .service-review label {
+    flex: 1 1 100% !important; /* 1 per row on very small screens */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* For Tablets and smaller screens */
+@media (max-width: 768px) {
+  .steps-container {
+    bottom: 15px;  /* Slightly reduce spacing on smaller screens */
+    right: 15px;
+  }
+
+  .steps-item {
+    width: 16px;  /* Reduce size of the steps for smaller screens */
+    height: 16px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* For Phones and very small screens */
+@media (max-width: 480px) {
+  .steps-container {
+    bottom: 10px;  /* Further reduce spacing for phones */
+    right: 10px;
+  }
+
+  .steps-item {
+    width: 14px;  /* Reduce step size for very small screens */
+    height: 14px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+
+
+
+
+
+
+
+
+.poll-thank-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100vh !important; /* Adjust based on your needs */
+  text-align: center !important;
+}
+
+.thank-you-image {
+  max-width: 100% !important; /* Adjust as needed */
+  height: auto !important;
+}
+
+.thank-you-text {
+  margin-top: 20px !important; /* Adjust as needed */
+}
+
+
+
+/* Left and Right Survey Area */
+.survey-left-area,
+.survey-right-area {
+  flex: 1;
+  /*padding: 20px;*/
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /*border-radius: 15px;*/
+  /*height: 100vh;*/
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Survey Content Styling */
+.survey-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background: #ffffff;
+  /*border-radius: 15px;*/
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, .125);
+
+}
+
+
+/* Service Review Section */
+.service-review {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 4rem;
+  padding: 0 15px !important;
+}
+/* Style for individual labels in the review section */
+
+.service-review label {
+  flex: 1;
+  max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f9f9;
+  border: 2px solid #D39931;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+/*.service-review label.selected {*/
+/*  background-color: #D39931;*/
+/*  color: #ffffff;*/
+/*  border-color: #b58e23;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+/*}*/
+.service-review label.selected .service-review-text {
+  background-color: #D39931 !important;
+  color: #000000 !important;
+  border-color: #b58e23 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+.service-review label:hover {
+  background-color: #f9f9f9; /* Light background on hover */
+  border-color: #000000; /* Darker border on hover */
+}
+
+/*.service-review label.selected:hover {*/
+/*  background-color: #D39931;*/
+/*  color: #ffffff;*/
+/*  border-color: #b58e23;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+/*}*/
+
+
+.service-review-img img {
+  max-width: 100px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+  opacity: 0.9;
+}
+
+.service-review input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/*.service-review input[type="radio"]:checked ~ .review_select {*/
+/*  display: block;*/
+/*  background-color: #D39931;*/
+/*}*/
+
+.service-review-text {
+  font-size: 17px;
+  color: #232222;
+  margin: 0 auto;
+  font-weight: 500;
+  line-height: 34px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 1px 21px rgba(1, 1, 1, 0.1);
+  padding: 0 0.5rem;
+  display: inline-block;
+  position: absolute;
+  width: calc(100% - 20px);
+  text-align: center;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 34px;
+}
+
+.review_select {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #D39931; /* Border for selected state */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: inset 0px 0px 0px 3px rgba(1, 1, 1, 0.2); /* Inner shadow for selected effect */
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  z-index: 1; /* Overlay should be above the label content */
+}
+
+
+/* Survey Content Styling */
+/* Base styles for the survey header and language switcher */
+.survey-header {
+  display: flex;
+  justify-content: space-between; /* Space between title and language switcher */
+  align-items: center; /* Center align items vertically */
+  margin-bottom: 20px;
+
+}
+
+.jw-top-title {
+  flex: 1; /* Allow title to take up available space */
+}
+
+.jw-top-title span {
+  display: block;
+  font-size: 18px;
+  color: #000000;
+  font-weight: 500;
+  margin: 10px;
+}
+
+.jw-top-title h2 {
+  margin: 10px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.header {
+  position: absolute;
+  top: 15px; /* Distance from the top of the card */
+  right: 15px; /* Distance from the right of the card */
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px; /* Space below language switcher */
+
+}
+
+
+/* Language Switcher */
+.language-switcher {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px; /* Space below language switcher */
+}
+
+.language-icon {
+  margin-inline-end: 8px; /* Works like margin-right in ltr and margin-left in rtl */
+  font-size: 2rem;
+  color: #D39931;
+}
+
+
+
+.language-select {
+  padding: 5px 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  background-color: #D39931;
+  cursor: pointer;
+  outline: none;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* Textarea */
+.service-textbox textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.survey-left-area .card {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  /*border-radius: 15px;*/
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /*padding: 25px;*/
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* Image Section */
+.card .survey-form-img {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+
+}
+
+.center-image {
+  height: auto;
+  margin-top: 5.5rem;
+  margin-bottom: 5.5rem;
+  text-align: center;
+}
+
+/* Image width adjustments */
+.card .survey-form-img img {
+  width: 50%; /* Set image width to 80% */
+  max-width: 100%; /* Ensure it doesn't exceed 100% of its container */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+
+/* Text Section */
+.card .job-wizard-left-text {
+  margin-bottom: 20px;
+  text-align: center; /* Center the text */
+}
+
+.card .job-wizard-left-text h1 {
+  font-size: 3.5rem; /* Use rem units for scalability */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #ffffff;
+
+}
+
+.card .job-wizard-left-text p {
+  color: #ffffff;
+
+  font-size: 1.2rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Copyright Section */
+.card .w-copyright {
+  color: #ffffff;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+
+.survey-ratting {
+  margin: 28px 0px 65px;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 18px 45px 33px;
+  border: 2px solid #D39931;
+  text-align: center !important;
+}
+
+.survey-ratting .survey-rate-text {
+  left: 0;
+  right: 0;
+  color: #fff;
+  width: 226px;
+  height: 34px;
+  bottom: -15px;
+  margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
+  line-height: 31px;
+  position: absolute;
+  border-radius: 6px;
+  background-color: #D39931;
+}
+.rate-value {
+  position: relative;
+}
+
+.rate-value.full-block-empty:before {
+  left: 0;
+  top: -15px;
+  font-size: 40px;
+  cursor: pointer;
+  content: ""; /* Font Awesome star icon */
+  color: #D39931; /* Default color for unselected stars */
+  font-weight: 400;
+  font-family: "Font Awesome 5 Free";
+}
+
+/* Selected stars */
+.rate-value.full-block:before {
+  left: 0;
+  top: -15px;
+  font-size: 43px;
+  cursor: pointer;
+  content: ""; /* Font Awesome star icon */
+  color: #D39931; /* Color for selected stars */
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+}
+
+/*=========
+Color Code
+===========*/
+.details-form-area .nb-terms-condition .check-circle, .details-form-area .age-gender-selector .gender-selector .check-circle {
+  position: relative;
+}
+.details-form-area .nb-terms-condition .check-circle:before, .details-form-area .age-gender-selector .gender-selector .check-circle:before, .details-form-area .nb-terms-condition .check-circle:after, .details-form-area .age-gender-selector .gender-selector .check-circle:after {
+  top: -5px;
+  left: 0;
+  content: "";
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border-radius: 100%;
+  background-color: #e1e1e1;
+  box-shadow: 0px 1px 29px 0px rgba(1, 1, 1, 0.09);
+}
+.details-form-area .nb-terms-condition .check-circle:after, .details-form-area .age-gender-selector .gender-selector .check-circle:after {
+  top: 3px;
+  left: 9px;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+}
+
+/*global area*/
+/*----------------------------------------------------*/
+
+
+::selection {
+  color: #fff;
+  background-color: #D39931;
+}
+
+::-moz-selection {
+  color: #fff;
+  background-color: #D39931;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s all ease-in-out;
+}
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+.form-control:focus,
+button:visited,
+button.active,
+button:hover,
+button:focus,
+input:visited,
+input.active,
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus,
+a:hover,
+a:focus,
+a:visited,
+a.active,
+select,
+select:hover,
+select:focus,
+select:visited {
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.form-control {
+  box-shadow: none;
+}
+
+p, label {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Jost", sans-serif;
+}
+
+.pt150 {
+  padding-top: 150px;
+}
+
+.multisteps-form__panel[data-animation=scaleOut] {
+  transform: scale(1.1);
+}
+
+.multisteps-form__panel[data-animation=scaleOut].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  transform: scale(1);
+}
+
+.multisteps-form__panel[data-animation=slideHorz] {
+  left: -50px;
+}
+
+.multisteps-form__panel[data-animation=slideHorz].js-active {
+  transition-property: all;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.2, 1.13, 0.38, 1.43);
+  transition-delay: 0s;
+  left: 0;
+}
+
+.multisteps-form__panel[data-animation=slideVert] {
+  top: 30px;
+}
+
+.multisteps-form__panel[data-animation=slideVert].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  top: 0;
+}
+
+.multisteps-form__panel[data-animation=fadeIn].js-active {
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+}
+
+.multisteps-form__panel[data-animation=scaleIn] {
+  transform: scale(0.9);
+}
+
+.multisteps-form__panel[data-animation=scaleIn].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  transform: scale(1);
+}
+
+/* ==========================================================================
+   multistep css
+   ========================================================================== */
+.multisteps-form__progress {
+  padding-top: 60px;
+  height: 100%;
+}
+
+.multisteps-form__panel {
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  overflow: hidden;
+  height: 0;
+}
+.multisteps-form__panel.js-active {
+  opacity: 1;
+  visibility: visible;
+  overflow: visible;
+  height: auto;
+}
+.multisteps-form__panel[data-animation=scaleOut] {
+  transform: scale(1.1);
+}
+.multisteps-form__panel[data-animation=scaleOut].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  transform: scale(1);
+}
+.multisteps-form__panel[data-animation=slideHorz] {
+  left: -50px;
+}
+.multisteps-form__panel[data-animation=slideHorz].js-active {
+  transition-property: all;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.2, 1.13, 0.38, 1.43);
+  transition-delay: 0s;
+  left: 0;
+}
+.multisteps-form__panel[data-animation=slideVert] {
+  top: 30px;
+}
+.multisteps-form__panel[data-animation=slideVert].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  top: 0;
+}
+.multisteps-form__panel[data-animation=fadeIn].js-active {
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+}
+.multisteps-form__panel[data-animation=scaleIn] {
+  transform: scale(0.9);
+}
+.multisteps-form__panel[data-animation=scaleIn].js-active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  transform: scale(1);
+}
+
+/* Base styles for buttons */
+.actions {
+  display: flex;
+  justify-content: flex-end; /* Aligns items to the right */
+  margin-top: 55px;
+  width: 100%; /* Ensures the container spans the full width */
+}
+
+.actions li {
+  color: #fff;
+  height: 58px;
+  width: 230px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  line-height: 58px;
+  border-radius: 40px;
+  display: inline-block;
+  overflow: hidden;
+  text-transform: uppercase;
+  margin-left: 10px;
+  background-color: #cdcdcd;
+}
+
+.actions li .js-btn-submit {
+  background-color: #D39931;
+  display: block;
+  width: 100%;
+  transition: 0.3s all ease-in-out;
+}
+
+.actions li .js-btn-next {
+  background-color: #D39931;
+  display: block;
+  width: 100%;
+  transition: 0.3s all ease-in-out;
+}
+
+.actions li .js-btn-prev {
+  color: #1a1a1a;
+  display: block;
+  width: 100%;
+  transition: 0.3s all ease-in-out;
+}
+
+.actions li span, .actions li button {
+  display: block;
+  width: 100%;
+  transition: 0.3s all ease-in-out;
+}
+
+.actions li span:hover, .actions li button:hover {
+  color: #fff;
+  background-color: #D39931;
+}
+
+.actions li button {
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+
+/* General Styles */
+.form-input-inner {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-input-inner input {
+  padding-left: 50px; /* Adjust space for the icon */
+  height: 45px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.icon-bg {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #777;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .form-input-inner input {
+    padding-left: 40px  !important; /* Adjust padding for tablets and smaller screens */
+  }
+
+  .icon-bg {
+    left: 8px  !important; /* Adjust icon position for tablets */
+    font-size: 14px !important; /* Adjust icon size for tablets */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-input-inner input {
+    padding-left: 35px  !important; /* Further adjust padding for very small screens */
+  }
+
+  .icon-bg {
+    left: 5px  !important; /* Further adjust icon position for very small screens */
+    font-size: 12px  !important; /* Further adjust icon size for very small screens */
+  }
+}
+
+
+/*---------------------------------------------------- */
+/*inner area*/
+/*----------------------------------------------------*/
+
+
+.job-style-two-content {
+  display: flex;
+  min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+}
+
+/* Additional styles for RTL support */
+
+.job-wizard-left-text h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.job-wizard-left-text p {
+  font-size: 1.1rem;
+  color: black;
+
+}
+
+.w-copyright {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: black;
+
+}
+
+.wizard-content-1 .job-wizard-right-area {
+  width: 55%;
+  z-index: 1;
+  padding: 115px 100px 80px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #D39931 0%, #ffffff 100%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+
+}
+.wizard-content-1 .job-wizard-right-area .jw-top-title {
+  padding-bottom: 30px;
+}
+
+.wizard-content-1 .job-wizard-right-area .jw-top-title h3 {
+  color: #232222;
+  font-size: 33px;
+  font-weight: 600;
+}
+.wizard-content-1 .job-wizard-right-area .jw-top-title span {
+  font-size: 19px;
+  color: #232222;
+}
+.wizard-content-1 .job-wizard-right-area .jw-top-title p {
+  font-size: 18px;
+  font-family: "Jost", sans-serif;
+}
+.wizard-content-1 .job-wizard-right-area .actions {
+  bottom: 100px;
+}
+.wizard-content-1 .job-wizard-right-area.survey-right-content-1 {
+  max-width: 100%;
+  display: inline-block;
+}
+.wizard-content-1 .job-wizard-right-two {
+  padding-right: 55px;
+}
+.wizard-content-1 .job-wizard-right-two .actions {
+  right: 55px;
+}
+
+.reccomend-selector li {
+  width: 100%;
+  height: 65px;
+  color: #777777;
+  font-size: 15px;
+  line-height: 65px;
+  font-weight: 400;
+  position: relative;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  display: inline-block;
+  background-color: #ececec;
+}
+.reccomend-selector li label {
+  width: 100%;
+  color: #121212;
+  font-size: 18px;
+  padding-left: 75px;
+  font-weight: 500;
+}
+.reccomend-selector li .checkmark-border:before {
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  left: 30px;
+  top: 18px;
+  background-color: #fff;
+  border: 2px solid #c4c4c4;
+}
+.reccomend-selector li .checkmark-border:after {
+  top: 24px;
+  left: 36px;
+  width: 18px;
+  content: "";
+  height: 18px;
+  display: none;
+  position: absolute;
+  border-radius: 100%;
+  background-color: #D39931;
+}
+.reccomend-selector li .exp-option-box:checked ~ .checkmark-border:after {
+  display: block;
+}
+.reccomend-selector .exp-option-box {
+  display: none;
+}
+.reccomend-selector .exp-label {
+  display: block;
+}
+
+.additional-reccomend textarea {
+  width: 100%;
+  border: none;
+  height: 205px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #ececec;
+}
+.additional-reccomend textarea::placeholder {
+  color: #121212;
+  font-size: 17px;
+}
+
+.service-textbox span {
+  left: 18px;
+  top: -18px;
+  width: 120px;
+  display: none;
+  height: 35px;
+  margin: 0 auto;
+  color: #232222;
+  font-size: 15px;
+  position: absolute;
+  line-height: 35px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0px 1px 21px 0px rgba(1, 1, 1, 0.1);
+}
+.service-textbox textarea {
+  width: 100%;
+  border: none;
+  height: 275px;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+.survey-right-content-3 .survey-reccomend-area-3 {
+  max-width: 650px;
+}
+.survey-right-content-3 .reccomend-selector li .checkmark-border:before {
+  height: 35px;
+  width: 35px;
+  border-radius: 3px;
+}
+.survey-right-content-3 .reccomend-selector li .checkmark-border:after {
+  top: 22px;
+  left: 39px;
+  width: inherit;
+  line-height: 1;
+  color: #121212;
+  height: inherit;
+  font-size: 18px;
+  content: "";
+  font-weight: 900;
+  background-color: transparent;
+  font-family: "Font Awesome 5 Free";
+}
+.survey-right-content-3 .reccomend-selector .nb-txt {
+  color: #121212;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.reccomend-faq-content li {
+  width: 100%;
+  max-width: 550px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  display: inline-block;
+  border-bottom: 2px solid #cdcdcd;
+}
+.reccomend-faq-content li:last-child {
+  border-bottom: none;
+}
+.reccomend-faq-content li span {
+  float: left;
+  width: 35px;
+  height: 35px;
+  font-size: 14px;
+  display: block;
+  font-weight: 600;
+  line-height: 35px;
+  margin-right: 20px;
+  text-align: center;
+  border-radius: 100%;
+  border: 2px solid #c8c8c8;
+}
+.reccomend-faq-content li h3 {
+  font-size: 24px;
+}
+
+.details-form-area .form-input-inner {
+  height: 72px;
+  margin-bottom: 40px;
+  background-color: #fff;
+  box-shadow: 0px 1px 29px 0px rgba(1, 1, 1, 0.09);
+}
+.details-form-area .form-input-inner input,
+.details-form-area .form-input-inner select,
+.details-form-area .form-input-inner textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-left: 40px;
+  border-radius: 5px;
+}
+.details-form-area .form-input-inner input::placeholder,
+.details-form-area .form-input-inner select::placeholder,
+.details-form-area .form-input-inner textarea::placeholder {
+  color: #b7b7b7;
+  font-weight: 500;
+  font-size: 14px;
+}
+.details-form-area .form-input-inner textarea {
+  width: 100%;
+  padding-top: 30px;
+}
+.details-form-area .form-input-inner select {
+  -webkit-appearance: none;
+}
+.details-form-area .form-input-inner select option {
+  color: #b7b7b7;
+  font-size: 14px;
+}
+.details-form-area .form-input-inner .icon-bg {
+  top: 20px;
+  left: -17px;
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
+  position: absolute;
+  border-radius: 100%;
+  background-color: #e4e4e4;
+}
+.details-form-area .form-input-inner .icon-bg i {
+  color: #686868;
+  font-size: 14px;
+}
+.details-form-area .age-gender-selector {
+  margin: 0 15px;
+  display: block;
+  width: 100%;
+}
+.details-form-area .age-gender-selector .form-input-inner {
+  width: 100px;
+  margin-right: 50px;
+}
+.details-form-area .age-gender-selector .gender-selector label {
+  margin-right: 30px;
+}
+.details-form-area .age-gender-selector .gender-selector .gender-input {
+  display: none;
+}
+.details-form-area .age-gender-selector .gender-selector .checkmark {
+  color: #b7b7b7;
+  font-weight: 700;
+  padding-left: 50px;
+}
+.details-form-area .age-gender-selector .gender-selector .gender-input:checked ~ .check-circle:after {
+  background-color: #D39931;
+}
+.details-form-area .nb-terms-condition .gender-input {
+  display: none;
+}
+.details-form-area .nb-terms-condition .checkmark {
+  color: #343434;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 45px;
+}
+.details-form-area .nb-terms-condition .gender-input:checked ~ .check-circle:after {
+  background-color: #343434;
+}
+.job-wizard-left-text{
+  padding: 0px 0px 150px;
+}
+
+
+/*---------------------------------------------------- */
+/*Responsive area*/
+/*----------------------------------------------------*/
+/* ==================================================
+*	01 - media screen and (max-width: 1440px)
+*	02 - media screen and (max-width: 1280px)
+*	03 - media screen and (max-width: 1199px)
+*	04 - media screen and (max-width: 991px)
+*	05 - media screen and (max-width: 767px)
+*	06 - media screen and (max-width: 680px)
+*	07 - media screen and (max-width: 580px)
+*	08 - media screen and (max-width: 480px)
+*	09 - media screen and (max-width: 380px)
+*	10 - media screen and (max-width: 320px)
+================================================== */
+/* Up to 1024px */
+
+/* Media Queries */
+
+/* Default styles for very large screens (4K) */
+@media screen and (min-width: 2560px) {
+
+
+  .container {
+    padding: 40px !important; /* Generous padding for large screens */
+  }
+
+  .card {
+    padding: 30px !important; /* Large padding inside cards */
+  }
+
+  .steps-item {
+    font-size: 22px !important;
+  }
+
+  .checkmark {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 32px !important;
+  }
+
+}
+
+/* Media query for viewport widths around 1920px */
+@media screen and (max-width: 1920px) {
+
+
+  .container {
+    padding: 30px !important;
+  }
+
+  .card {
+    padding: 25px !important;
+  }
+
+  .steps-item {
+    font-size: 20px !important;
+  }
+
+  .checkmark {
+    font-size: 28px !important;
+  }
+
+}
+
+/* Media query for viewport widths around 1440px */
+@media screen and (max-width: 1440px) {
+
+
+  .container {
+    padding: 20px !important;
+  }
+
+  .card {
+    padding: 20px !important;
+  }
+
+  .steps-item {
+    font-size: 18px !important;
+  }
+
+  .checkmark {
+    font-size: 24px !important;
+  }
+
+
+}
+
+/* Media query for viewport widths around 1280px */
+@media screen and (max-width: 1280px) {
+
+  .container {
+    padding: 15px !important;
+  }
+
+  .card {
+    padding: 18px !important;
+  }
+
+  .steps-item {
+    font-size: 16px !important;
+  }
+
+  .checkmark {
+    font-size: 20px !important;
+  }
+
+
+}
+
+/* Media query for viewport widths around 1199px */
+@media screen and (max-width: 1199px) {
+
+
+  .container {
+    padding: 10px !important;
+  }
+
+  .card {
+    padding: 15px !important;
+  }
+
+  .steps-item {
+    font-size: 14px !important;
+  }
+
+  .checkmark {
+    font-size: 16px !important;
+  }
+
+}
+
+/* Media query for viewport widths around 991px */
+@media screen and (max-width: 991px) {
+
+
+  .container {
+    padding: 8px !important;
+  }
+
+  .card {
+    padding: 12px !important;
+  }
+
+  .steps-item {
+    font-size: 12px !important;
+  }
+
+
+}
+
+/* Media query for viewport widths around 767px */
+@media screen and (max-width: 767px) {
+
+
+  .container {
+    padding: 5px !important;
+  }
+
+  .card {
+    padding: 10px !important;
+  }
+
+  .steps-item {
+    font-size: 10px !important;
+  }
+
+  .checkmark {
+    font-size: 12px !important;
+  }
+
+}
+
+/* Media query for viewport widths around 580px */
+@media screen and (max-width: 580px) {
+
+
+  .container {
+    padding: 5px !important;
+  }
+
+  .card {
+    padding: 8px !important;
+  }
+
+  .steps-item {
+    font-size: 8px !important;
+  }
+
+  .checkmark {
+    font-size: 10px !important;
+  }
+
+
+}
+
+/* Media query for viewport widths around 480px */
+@media screen and (max-width: 480px) {
+
+
+  .container {
+    padding: 3px !important;
+  }
+
+  .card {
+    padding: 5px !important;
+  }
+
+  .steps-item {
+    font-size: 6px !important;
+  }
+
+  .checkmark {
+    font-size: 8px !important;
+  }
+
+
+}
+
+
+
+@media screen and (min-width: 2560px) {
+  .survey-rate-text {
+    font-size: 1.25rem;
+  }
+
+  .rate-value {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .survey-rate-text {
+    font-size: 1.1rem;
+  }
+
+  .rate-value {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .survey-rate-text {
+    font-size: 1rem;
+  }
+
+  .rate-value {
+    font-size: 1.75rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .survey-rate-text {
+    font-size: 0.85rem;
+  }
+
+  .rate-value {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+
+/*survey header */
+/* Extra Large Screens (4K) */
+@media screen and (min-width: 2560px) {
+  .survey-header {
+    margin-bottom: 30px; /* Increased margin for more spacing */
+  }
+
+}
+
+/* Large Screens */
+@media screen and (max-width: 2560px) and (min-width: 1920px) {
+  .survey-header {
+    margin-bottom: 25px; /* Moderate margin */
+  }
+
+
+
+
+}
+
+/* Medium Screens */
+@media screen and (max-width: 1920px) and (min-width: 1440px) {
+  .survey-header {
+    margin-bottom: 20px; /* Standard margin */
+  }
+
+
+
+}
+
+/* Small Screens */
+@media screen and (max-width: 1440px) {
+  .survey-header {
+    flex-direction: column; /* Stack vertically */
+    align-items: flex-start; /* Align to start */
+  }
+
+  .jw-top-title {
+    margin-bottom: 10px; /* Reduced margin */
+  }
+
+
+
+
+}
+
+/* Extra Small Screens */
+@media screen and (max-width: 767px) {
+  .survey-header {
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center align */
+  }
+
+  .jw-top-title {
+    text-align: center; /* Center align text */
+  }
+
+
+
+
+}
+
+/* Extra Extra Small Screens */
+@media screen and (max-width: 480px) {
+  .survey-header {
+    padding: 10px; /* Padding around header */
+    flex-direction: column; /* Align items horizontally */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center align items vertically */
+  }
+
+  .jw-top-title {
+    flex: 1; /* Allow title to take up available space */
+    text-align: center; /* Center align text */
+    margin-right: 10px; /* Space between title and language switcher */
+  }
+
+
+
+
+}
+
+
+
+/* Action buttons */
+/* Extra Large Screens (4K) */
+@media screen and (min-width: 2560px) {
+  .actions li {
+    font-size: 1.1rem; /* Slightly larger font */
+    height: 48px; /* Increase height a bit */
+    width: 180px; /* Slightly wider */
+    line-height: 48px; /* Ensure proper centering */
+  }
+
+  .actions li .js-btn-next, .actions li .js-btn-prev {
+    font-size: 1.1rem; /* Slightly larger for readability */
+  }
+}
+
+/* Large Screens (1920px and below) */
+@media screen and (max-width: 1920px) {
+  .actions li {
+    font-size: 1rem; /* Standard font size */
+    height: 45px; /* Adjust height */
+    width: 170px; /* Narrower buttons */
+    line-height: 45px; /* Consistent centering */
+  }
+
+  .actions li .js-btn-next, .actions li .js-btn-prev {
+    font-size: 1rem;
+  }
+}
+
+/* Medium Screens (1440px and below) */
+@media screen and (max-width: 1440px) {
+  .actions li {
+    font-size: 1rem;
+    height: 42px;
+    width: 160px;
+    line-height: 44px;
+  }
+
+  .actions li .js-btn-next, .actions li .js-btn-prev {
+    font-size: 1rem;
+  }
+}
+
+/* Small Screens (768px and below) */
+@media screen and (max-width: 768px) {
+  .actions {
+    float: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .actions li {
+    font-size: 0.9rem; /* Slightly smaller font */
+    height: 40px; /* Smaller height */
+    width: 140px; /* Narrower buttons */
+    line-height: 40px; /* Ensure proper centering */
+  }
+
+  .actions li .js-btn-next, .actions li .js-btn-prev {
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Screens (480px and below) */
+@media screen and (max-width: 480px) {
+  .actions li {
+    font-size: 0.85rem; /* Decrease font size for smaller screens */
+    height: 35px; /* Small height */
+    width: 120px; /* Smaller width */
+    line-height: 35px; /* Ensure proper centering */
+  }
+
+  .actions li .js-btn-next, .actions li .js-btn-prev {
+    font-size: 0.85rem;
+  }
+}
+
+
+
+/*service review*/
+/* Extra Small Screens (XS) */
+@media (max-width: 320px) {
+  .service-review {
+    align-items: center;
+  }
+
+  .service-review label {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+
+
+
+}
+
+/* Small Screens (SM) */
+@media (min-width: 321px) and (max-width: 480px) {
+  .service-review {
+    align-items: center;
+  }
+
+  .service-review label {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+
+
+}
+
+/* Medium Screens (MD) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .service-review {
+    justify-content: center;
+  }
+
+  .service-review label {
+    max-width: 120px;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+
+
+
+}
+
+/* Large Screens (LG) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .service-review {
+    justify-content: space-between;
+  }
+
+  .service-review label {
+    max-width: 140px;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+  }
+
+
+
+
+}
+
+/* Extra Large Screens (XL) */
+@media (min-width: 1025px) {
+  .service-review {
+    justify-content: space-between;
+  }
+
+  .service-review label {
+    max-width: 160px;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+
+
+}
+
+/* Extra Large Screens (4K) */
+@media (min-width: 2560px) {
+  .service-review {
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .service-review label {
+    max-width: 180px; /* Increased max-width for labels */
+    padding: 1.2rem; /* Increased padding for better touch targets */
+    font-size: 1.2rem; /* Larger font size for readability */
+  }
+
+  .service-review-img img {
+    max-width: 100px; /* Slightly larger image size */
+  }
+
+}
+
+
+
+/*right side*/
+/* Responsive Styles */
+@media screen and (max-width: 1200px) {
+  .survey-right-area {
+    padding: 15px;
+  }
+
+  .survey-left-area {
+    padding: 15px;
+  }
+
+  .survey-content {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .survey-right-area {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 10px;
+  }
+
+  .survey-left-area {
+    padding: 10px;
+  }
+
+  .survey-content {
+    padding: 10px;
+  }
+
+  .survey-header {
+    text-align: center; /* Center align text */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .survey-right-area {
+    padding: 5px;
+  }
+
+  .survey-left-area {
+    padding: 5px;
+  }
+
+  .survey-content {
+    padding: 5px;
+  }
+
+
+  .service-review label {
+    display: block; /* Stack labels vertically */
+    margin-bottom: 10px; /* Space between items */
+  }
+
+  .service-textbox textarea {
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+
+  .actions ul {
+    text-align: center; /* Center align actions */
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+
+  .service-review label {
+    margin-bottom: 20px; /* Space between items */
+  }
+
+  .service-textbox textarea {
+    font-size: 0.7rem; /* Smaller font size */
+    padding: 5px; /* Adjust padding */
+  }
+
+  .actions ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .actions li {
+    margin-bottom: 5px; /* Space between buttons */
+  }
+}
+
+
+
+/* Large Screens (1024px to 1439px) */
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+
+  .card .survey-form-img img {
+    width: 50%; /* Default image size for large desktops */
+  }
+
+
+}
+
+/* Extra Large Screens (1440px and up) */
+@media screen and (min-width: 1440px) {
+
+  .card .survey-form-img img {
+    width: 50%; /* Default image size for large desktops */
+  }
+
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+
+}
+
+
+/* Extra small devices (phones, < 600px) */
+@media (max-width: 600px) {
+  .card .survey-form-img img {
+    width: 90%; /* Increase image width to 80% */
+  }
+
+
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px - 768px) */
+@media (min-width: 600px) and (max-width: 768px) {
+  .card .survey-form-img img {
+    width: 80%; /* Slightly smaller for medium devices */
+  }
+
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+}
+
+/* Medium devices (landscape tablets, 768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card .survey-form-img img {
+    width: 80%; /* Medium-sized images for tablets */
+  }
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+}
+
+/* Large devices (desktops, 1024px - 1200px) */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .card .survey-form-img img {
+    width: 70%; /* Larger image for desktop screens */
+  }
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+  .card .survey-form-img img {
+    width: 60%; /* Default image size for large desktops */
+  }
+
+
+}
+
+/* General adjustments for small screens */
+@media (max-width: 768px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
+  /* Adjust image margin on small screens */
+  .survey-form-img {
+    margin-top: 6rem; /* Increased space between the image and language switcher */
+  }
+
+  /* Ensure image is responsive */
+  .survey-form-img img {
+    width: 80%; /* Keep the image size responsive */
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Center the image */
+  .center-image {
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Adjust text spacing for small screens */
+  .job-wizard-left-text h1 {
+    margin-bottom: 0.5rem;
+  }
+
+
+  /* Adjust the bottom copyright section */
+  .w-copyright {
+    text-align: center;
+    margin-top: 2rem;
+  }
+}
+
+
+
+/*---------------------------------------------------- */

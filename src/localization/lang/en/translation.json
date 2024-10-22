@@ -1,0 +1,25 @@
+{
+  "survey": {
+    "titleDefault": "Default Title",
+    "descriptionDefault": "Default Description",
+    "yourReview": "Your Review",
+    "additionalMessage": "Please provide additional comments:",
+    "of": "of",
+    "steps": "Steps",
+    "copyright": "©2024 Al Yalayis Government Transactions Center",
+    "thankYou": "Thank you For your Response!",
+    "Next": "Next",
+    "Previous": "Previous"
+
+  },
+
+  "contact": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email *",
+    "phone": "Phone",
+    "age": "Age",
+    "male": "Male",
+    "female": "Female"
+  }
+}

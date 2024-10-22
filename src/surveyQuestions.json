@@ -1,0 +1,106 @@
+{
+  "en": [
+    {
+      "stepNumber": 1,
+      "title": "Customer Feedback",
+      "description": "Please provide feedback on the service you received.",
+      "question": "What is the level of satisfaction with the service provided?",
+      "type": "radio",
+      "options": [
+        { "value": "Very Bad", "imgSrc": "Very Bad" },
+        { "value": "Bad", "imgSrc": "Bad" },
+        { "value": "Average", "imgSrc": "Average" },
+        { "value": "Happy", "imgSrc": "Happy" }
+      ],
+      "hasTextarea": true
+    },
+    {
+      "stepNumber": 2,
+      "title": "Customer Recommendation",
+      "description": "Please let us know how likely you are to recommend our company.",
+      "question": "How do you evaluate your satisfaction an service employee performance?",
+      "type": "radio",
+      "options": [
+        { "value": "Very Bad", "imgSrc": "Very Bad" },
+        { "value": "Bad", "imgSrc": "Bad" },
+        { "value": "Average", "imgSrc": "Average" },
+        { "value": "Happy", "imgSrc": "Happy" }
+      ],
+      "hasTextarea": true
+    },
+
+    {
+      "stepNumber": 3,
+      "title": "Customer Rating",
+      "description": "Your opinion matters! Rate our company from 1 to 5 stars.",
+      "question": "Rate your happiness level in relation to Provided Service?",
+      "type": "rating",
+      "options": [
+        { "value": "1 Star" }
+      ],
+      "hasTextarea": true
+    },
+
+    {
+      "stepNumber": 4,
+      "title": "Contact Information",
+      "description": "Please provide your contact information for follow-up.",
+      "question": "How would you prefer to be contacted?",
+      "type": "contact",
+      "options": [],
+      "hasTextarea": true
+    }
+  ],
+
+  "ar": [
+    {
+      "stepNumber": 1,
+      "title": "ملاحظات العميل",
+      "description": "يرجى تقديم ملاحظات حول الخدمة التي تلقيتها.",
+      "question": "ما هو مستوى الرضا عن الخدمة المقدمة؟",
+      "type": "radio",
+      "options": [
+        { "value": "سيء جدًا", "imgSrc": "Very Bad" },
+        { "value": "سيء", "imgSrc": "Bad" },
+        { "value": "متوسط", "imgSrc": "Average" },
+        { "value": "راضٍ", "imgSrc": "Happy" }
+      ],
+      "hasTextarea": true
+    },
+    {
+      "stepNumber": 2,
+      "title": "توصية العميل",
+      "description": "يرجى إعلامنا بمدى احتمالية أن توصي بشركتنا.",
+      "question": "كيف تقيم مستوى رضاك وأداء الموظف الخدمي؟",
+      "type": "radio",
+      "options": [
+        { "value": "سيء جدًا", "imgSrc": "Very Bad" },
+        { "value": "سيء", "imgSrc": "Bad" },
+        { "value": "متوسط", "imgSrc": "Average" },
+        { "value": "راضٍ", "imgSrc": "Happy" }
+      ],
+      "hasTextarea": true
+    },
+
+    {
+      "stepNumber": 3,
+      "title": "تقييم العميل",
+      "description": "رأيك مهم! قم بتقييم شركتنا من 1 إلى 5 نجوم.",
+      "question": "قيم مستوى سعادتك بالخدمة المقدمة؟",
+      "type": "rating",
+      "options": [      ],
+      "hasTextarea": true
+    },
+
+    {
+      "stepNumber": 4,
+      "title": "معلومات الاتصال",
+      "description": "يرجى تقديم معلومات الاتصال الخاصة بك للمتابعة.",
+      "question": "كيف تفضل أن يتم الاتصال بك؟",
+      "type": "contact",
+      "options": [],
+      "hasTextarea": true
+    }
+  ]
+
+}

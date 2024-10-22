@@ -1,0 +1,346 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
+    -moz-osx-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100% ;
+    box-sizing: border-box;
+
+}
+
+/* Container for the branding section */
+.branding {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    padding: 2rem;
+    text-align: center; /* Center-align text within the container */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(8px);
+    box-sizing: border-box;
+
+}
+.branding img {
+    max-width: 200px; /* Restrict logo size */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 1.5rem; /* Spacing below the logo */
+}
+
+.branding h1 {
+    font-size: 2.5rem; /* Larger font size for prominence */
+    color: #333; /* Dark color for better readability */
+    margin: 0.5rem 0; /* Margin around the title */
+}
+
+.branding p {
+    font-size: 1.2rem; /* Slightly larger font size */
+    color: #666; /* Subtle color for the subtitle */
+    margin: 0; /* Remove default margins */
+}
+
+
+.survey-area {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #D39931 0%, #ffffff 100%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.survey-content {
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.survey-content h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+/* Survey Options */
+.survey-options {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.survey-options label {
+    flex: 1;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f9f9f9;
+    border: 2px solid #D39931;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+}
+
+.survey-options label.selected {
+    background-color: #D39931;
+    color: #ffffff;
+    border-color: #b58e23;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.survey-options label.selected span {
+    color: #000000;
+    transform: scale(1.2);
+}
+
+.survey-options img {
+    max-width: 108px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    transition: filter 0.3s ease;
+}
+
+
+.survey-options label img {
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    width: 100%;
+}
+
+.survey-options label.selected img {
+    opacity: 1;
+}
+
+
+.survey-questions {
+    width: 100%;
+}
+
+.question {
+    margin-bottom: 1rem;
+}
+
+
+
+.service-textbox {
+    margin-top: 6rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.service-textbox span {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.service-textboxss textarea {
+    width: 100%;
+    height: 120px;
+    border: 2px solid #D39931;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+
+}
+
+.service-textbox textarea:focus {
+    border-color: #b58e23;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.buttons button {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #D39931;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttons button:hover {
+    background-color: #c38a2a;
+    transform: translateY(-2px);
+}
+
+.buttons button:active {
+    transform: translateY(0);
+}
+
+.survey-options input[type="radio"] {
+    position: absolute; /* Remove from the document flow */
+    opacity: 0; /* Make invisible */
+    width: 0; /* Remove width */
+    height: 0; /* Remove height */
+    margin: 0; /* Remove margins */
+    padding: 0; /* Remove padding */
+    clip: rect(0, 0, 0, 0); /* Clip the content */
+    border: 0; /* Remove border */
+}
+
+
+
+.survey-ratting {
+    margin: 28px 0px 65px;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 18px 45px 33px;
+    border: 2px solid #D39931;
+    text-align: center !important;
+}
+
+.survey-ratting .survey-rate-text {
+    left: 0;
+    right: 0;
+    color: #fff;
+    width: 226px;
+    height: 34px;
+    bottom: -15px;
+    margin: 0 auto;
+    font-size: 20px;
+    text-align: center;
+    line-height: 31px;
+    position: absolute;
+    border-radius: 6px;
+    background-color: #D39931;
+}
+.rate-value {
+    position: relative;
+}
+
+.rate-value.full-block-empty:before {
+    left: 0;
+    top: -15px;
+    font-size: 40px;
+    cursor: pointer;
+    content: ""; /* Font Awesome star icon */
+    color: #D39931; /* Default color for unselected stars */
+    font-weight: 400;
+    font-family: "Font Awesome 5 Free";
+}
+
+/* Selected stars */
+.rate-value.full-block:before {
+    left: 0;
+    top: -15px;
+    font-size: 43px;
+    cursor: pointer;
+    content: ""; /* Font Awesome star icon */
+    color: #D39931; /* Color for selected stars */
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+}
+
+
+
+
+
+
+
+/* Styling for the footer */
+.footer {
+    margin-top: 2rem;
+    font-size: 0.9rem; /* Slightly smaller font size */
+    color: #888; /* Subtle color for the footer text */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .branding {
+        width: 100%;
+        padding: 2rem 1rem;
+    }
+
+    .branding img {
+        max-width: 150px;
+        margin-bottom: 1rem;
+    }
+
+    .branding h1 {
+        font-size: 2.5rem;
+    }
+
+    .branding p {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .survey-area {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .survey-content {
+        padding: 1rem;
+    }
+
+    .survey-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .survey-options label {
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .service-textbox textarea {
+        height: 100px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons button {
+        margin-bottom: 0.5rem;
+    }
+}
+

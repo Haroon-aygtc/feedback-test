@@ -1,0 +1,25 @@
+{
+  "survey": {
+    "titleDefault": "العنوان الافتراضي",
+    "descriptionDefault": "الوصف الافتراضي",
+    "yourReview": "مراجعتك",
+    "additionalMessage": "يرجى تقديم تعليقات إضافية:",
+    "of": "من",
+    "steps": "خطوات",
+    "copyright": "©2024 مركز المعاملات الحكومية – الياليس",
+    "thankYou": "شكرا لردك",
+    "Next": "التالي",
+    "Previous": "السابق"
+
+  },
+
+  "contact": {
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "email": "البريد الإلكتروني *",
+    "phone": "الهاتف",
+    "age": "العمر",
+    "male": "ذكر",
+    "female": "أنثى"
+  }
+}
