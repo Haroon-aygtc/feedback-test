@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from 'react';
 import { submitSurveyResponses } from '../services/dataService.js';
-import {useLoading} from "../components/Survey/context/LoadingContext.js";
-import {useSurveyContext} from "../components/Survey/context/SurveyContext.js";
+import { useLoading } from "../components/Survey/context/LoadingContext.js";
+import { useSurveyContext } from "../components/Survey/context/SurveyContext.js";
 
 const useSubmitSurvey = () => {
     const { formValues, isSubmitted, resetForm, setIsSubmitted } = useSurveyContext();
@@ -16,14 +16,14 @@ const useSubmitSurvey = () => {
         event.preventDefault();
 
         if (isSubmitted || submitting) {
-            return;
+            return false;
         }
 
         setSubmitting(true);
         setSubmissionError(null);
         startLoading();
+
         try {
-            // Create dataToSave object in the desired format
             const questions = Object.entries(formValues.survey.questions).reduce((acc, [key, value]) => {
                 const questionNumber = key.replace('question_', '');
                 acc[questionNumber] = {
@@ -36,18 +36,24 @@ const useSubmitSurvey = () => {
             const dataToSave = {
                 survey: {
                     survey_id: formValues.survey.survey_id,
-                    locale: formValues.survey.locale, // Include locale
+                    locale: formValues.survey.locale,
                     questions: questions,
                 },
             };
+
             await submitSurveyResponses(dataToSave);
             setIsSubmitted(true);
+            resetForm();
             setTimeout(() => {
                 window.location.reload();
-            }, 10000);
+            }, 5000); // 5000 milliseconds = 5 seconds
+            return true;
+
         } catch (error) {
             console.error('Error submitting survey:', error);
             setSubmissionError(error);
+            return false;
+
         } finally {
             setSubmitting(false);
             stopLoading();

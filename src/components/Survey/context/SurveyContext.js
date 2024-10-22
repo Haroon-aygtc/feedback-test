@@ -1,22 +1,25 @@
-import { createContext, useState, useMemo, useContext, useEffect, useCallback} from 'react';
+import { createContext, useState, useMemo, useContext, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { QUESTION_TYPES } from '../../../utils/constants.js';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const SurveyContext = createContext();
 
 export const SurveyProvider = ({ children }) => {
-    const [formValues, setFormValues] = useState({
-        survey: {
-            survey_id: uuidv4(),
-            questions: {},
-            locale: null,
-        },
-    });
+
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const { i18n } = useTranslation();
     const locale = i18n.language;
+
+
+    const [formValues, setFormValues] = useState({
+        survey: {
+            survey_id: uuidv4(),
+            questions: {},
+            locale: locale,
+        },
+    });
 
     // Reset form on load
     const resetForm = useCallback(() => {
@@ -24,7 +27,7 @@ export const SurveyProvider = ({ children }) => {
             survey: {
                 survey_id: uuidv4(),
                 questions: {},
-                locale,
+                locale: locale,
             },
         });
         setCurrentStep(1);
@@ -32,7 +35,7 @@ export const SurveyProvider = ({ children }) => {
     }, [locale]);
     useEffect(() => {
         resetForm();
-    }, [resetForm]); 
+    }, [resetForm]);
 
     const updateAnswer = (stepNumber, answerType, value) => {
         setFormValues((prevValues) => ({
@@ -44,7 +47,7 @@ export const SurveyProvider = ({ children }) => {
                     [`question_${stepNumber}`]: {
                         answer: {
                             ...prevValues.survey.questions[`question_${stepNumber}`]?.answer,
-                            [answerType]: value,  
+                            [answerType]: value,
                         },
                     },
                 },

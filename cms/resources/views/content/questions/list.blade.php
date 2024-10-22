@@ -8,6 +8,54 @@
     .hidden {
       display: none !important;
     }
+
+     .table-hover tbody tr:hover {
+       background-color: rgba(0,0,0,.075);
+       transition: background-color 0.2s;
+     }
+
+    .btn-group .btn {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.25rem;
+      transition: all 0.2s;
+    }
+
+    .btn-group .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #4e73df, #224abe);
+    }
+
+    .lang-toggle.active {
+      background-color: #4e73df;
+      color: white;
+    }
+
+    .list-group-item {
+      border-left: 4px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .list-group-item:hover {
+      border-left-color: #4e73df;
+      background-color: #f8f9fc;
+    }
+
+    .table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .question-badge {
+      padding: 0.35em 0.65em;
+      font-size: 0.75em;
+      font-weight: 500;
+      border-radius: 0.25rem;
+    }
   </style>
 <!-- Striped Rows -->
 <div class="card">
@@ -25,8 +73,11 @@
   </div>
 
 
+
+
+
   <div class="table-responsive text-nowrap">
-    <table class="table table-striped" id="question-table">
+    <table class="table table-striped table-hover" id="question-table">
       <thead>
       <tr id="en" data-question-id="en">
         <th data-question-id="text-en">Question Text</th>
@@ -42,7 +93,6 @@
         <th data-question-id="type-ar">نوع</th>
         <th data-question-id="actions-ar">إجراءات</th>
       </tr>
-        </tr>
       </thead>
       <tbody class="table-border-bottom-0" id="question-table-body">
       @foreach($questions as $question)
@@ -51,34 +101,36 @@
           <td>{{ $question->translations->firstWhere('locale', 'en')->title }}</td>
           <td>{{ Str::limit($question->translations->firstWhere('locale', 'en')->description, 10) }}</td>
           <td>{{ $question->type }}</td>
-
           <td>
-            @if ($question->type === 'radio')
-              <button class="btn btn-sm btn-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}">
-                <i class="fa fa-list"></i>
+            <div class="btn-group btn-group-sm" role="group">
+              @if ($question->type === 'radio')
+                <button type="button" class="btn btn-outline-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}" title="View Options">
+                  <i class="fa fa-list-ul"></i>
+                </button>
+              @endif
+              <button type="button" class="btn btn-outline-secondary view-question-modal" data-question-id="{{ $question->id }}" title="View Translations">
+                <i class="fa fa-language"></i>
               </button>
-            @endif
-            <button class="btn btn-sm btn-secondary view-question-modal" data-question-id="{{ $question->id }}">
-              <i class="fa fa-globe"></i>
-            </button>
+            </div>
           </td>
         </tr>
-        <!-- Arabic Row -->
+
         <tr class="d-none" data-question-id="{{ $question->id }}-ar">
           <td>{{ $question->translations->firstWhere('locale', 'ar')->question_text }}</td>
           <td>{{ $question->translations->firstWhere('locale', 'ar')->title }}</td>
           <td>{{ Str::limit($question->translations->firstWhere('locale', 'ar')->description, 10) }}</td>
           <td>{{ $question->type }}</td>
-
           <td>
-            @if ($question->type === 'radio')
-              <button class="btn btn-sm btn-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}">
-                <i class="fa fa-list"></i>
+            <div class="btn-group btn-group-sm" role="group">
+              @if ($question->type === 'radio')
+                <button type="button" class="btn btn-outline-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}" title="عرض الخيارات">
+                  <i class="fa fa-list-ul"></i>
+                </button>
+              @endif
+              <button type="button" class="btn btn-outline-secondary view-question-modal" data-toggle="modal" data-target="#question-modal-{{ $question->id }}-ar" data-question-id="{{ $question->id }}" title="عرض الترجمات">
+                <i class="fa fa-language"></i>
               </button>
-            @endif
-            <button class="btn btn-sm btn-secondary view-question-modal" data-toggle="modal" data-target="#question-modal-{{ $question->id }}-ar" data-question-id="{{ $question->id }}">
-              <i class="fa fa-globe"></i>
-            </button>
+            </div>
           </td>
         </tr>
 
@@ -87,56 +139,56 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                  <h5 class="modal-title" id="option-modal-label-{{ $question->id }}">Options for Question #{{ $question->id }}</h5>
+                  <h5 class="modal-title" id="option-modal-label-{{ $question->id }}">
+                    <i class="fa fa-list-ul"></i> Options for Question #{{ $question->id }}
+                  </h5>
                   <button type="button" class="close text-black" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">×</span>
                   </button>
                 </div>
 
                 <div class="modal-body">
                   <div class="text-center mb-3">
-                    <button class="lang-toggle btn btn-outline-primary" data-lang="en">Show English</button>
-                    <button class="lang-toggle btn btn-outline-primary" data-lang="ar">Show Arabic</button>
+                    <div class="btn-group" role="group" aria-label="Language Toggle">
+                      <button type="button" class="lang-toggle btn btn-outline-primary active" data-lang="en">English</button>
+                      <button type="button" class="lang-toggle btn btn-outline-primary" data-lang="ar">Arabic</button>
+                    </div>
                   </div>
 
                   <ul class="list-group">
                     @foreach ($question->options as $option)
                       <li class="list-group-item option-item" data-option-id="{{ $option->id }}">
-                        <div class="row align-items-center">
-                          <div class="col-md-12">
-                            <div class="lang-content">
-                              <div class="lang-item en active">
-                                <div class="row align-items-start mb-3">
-                                  <div class="col-md-6">
-                                    <p class="font-weight-bold">
-                                      {{ $option->translations->firstWhere('locale', 'en')->option_text ?? 'No English text available' }}
-                                    </p>
-                                  </div>
-                                  <div class="col-md-6 text-right">
-                                    @if ($option->translations->firstWhere('locale', 'en')->image_path ?? '')
-                                      <img src="{{ asset($option->translations->firstWhere('locale', 'en')->image_path) }}" alt="Option Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;">
-                                    @else
-                                      <span class="text-muted">No Image</span>
-                                    @endif
-                                  </div>
-                                </div>
+                        <div class="lang-content">
+                          <div class="lang-item en active">
+                            <div class="row align-items-start mb-3">
+                              <div class="col-md-6">
+                                <p class="font-weight-bold">
+                                  {{ $option->translations->firstWhere('locale', 'en')->option_text ?? 'No English text available' }}
+                                </p>
                               </div>
+                              <div class="col-md-6 text-right">
+                                @if ($option->translations->firstWhere('locale', 'en')->image_path ?? '')
+                                  <img src="{{ asset($option->translations->firstWhere('locale', 'en')->image_path) }}" alt="Option Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;">
+                                @else
+                                  <span class="text-muted">No Image</span>
+                                @endif
+                              </div>
+                            </div>
+                          </div>
 
-                              <div class="lang-item ar d-none">
-                                <div class="row align-items-start mb-3">
-                                  <div class="col-md-6">
-                                    <p class="font-weight-bold">
-                                      {{ $option->translations->firstWhere('locale', 'ar')->option_text ?? 'No Arabic text available' }}
-                                    </p>
-                                  </div>
-                                  <div class="col-md-6 text-right">
-                                    @if ($option->translations->firstWhere('locale', 'ar')->image_path ?? '')
-                                      <img src="{{ asset($option->translations->firstWhere('locale', 'ar')->image_path) }}" alt="Option Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;">
-                                    @else
-                                      <span class="text-muted">لا توجد صورة</span>
-                                    @endif
-                                  </div>
-                                </div>
+                          <div class="lang-item ar d-none">
+                            <div class="row align-items-start mb-3">
+                              <div class="col-md-6">
+                                <p class="font-weight-bold">
+                                  {{ $option->translations->firstWhere('locale', 'ar')->option_text ?? 'No Arabic text available' }}
+                                </p>
+                              </div>
+                              <div class="col-md-6 text-right">
+                                @if ($option->translations->firstWhere('locale', 'ar')->image_path ?? '')
+                                  <img src="{{ asset($option->translations->firstWhere('locale', 'ar')->image_path) }}" alt="Option Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;">
+                                @else
+                                  <span class="text-muted">لا توجد صورة</span>
+                                @endif
                               </div>
                             </div>
                           </div>
@@ -157,8 +209,12 @@
       @endforeach
       </tbody>
     </table>
-    {{ $questions->links() }}
+    <div class="pagination-wrapper">
+      {{ $questions->links() }}
+    </div>
   </div>
+
+
 </div>
 <!--/ Striped Rows -->
   <!-- jQuery (required for Bootstrap 4 and lower) -->
@@ -261,119 +317,6 @@
         });
       });
     });
-
-    // ================ Fetch Questions Function ================
-    // function fetchQuestions(page = 1) {
-    //   fetch('#' + `?page=${page}`)
-    //     .then(response => {
-    //       if (!response.ok) {
-    //         throw new Error('Network response was not ok');
-    //       }
-    //       const questions = data.data;
-    //       renderQuestionList(questions);
-    //     })
-    //     .then(data => {
-    //       const questions = data.data;
-    //       renderQuestionList(questions);
-    //     })
-    //     .catch(error => {
-    //
-    //     });
-    // };
-   {{--// {{ route('admin.questions.index') }}   ---    {{ route('admin.questions.updateStatus') }} --}}
-    // ================ Render Question List Function ================
-    // function renderQuestionList(data) {
-    //   const questionTableBodyElement = document.getElementById('question-table-body');
-    //   questionTableBodyElement.innerHTML = '';
-    //
-    //   data.data.forEach(question => {
-    //     const tableRow = document.createElement('tr');
-    //     tableRow.innerHTML = `
-    //   <td>${question.id}</td>
-    //   <td>
-    //     <button class="toggle-button" data-question-id="${question.id}">Toggle</button>
-    //     <div class="question-text" data-question-id="${question.id}">
-    //       <p>AR: ${question.text_ar}</p>
-    //       <p>EN: ${question.text_en}</p>
-    //     </div>
-    //   </td>
-    //   <td>${question.category.name}</td>
-    //   <td>${question.type.name}</td>
-    //   <td>${question.status ? 'Active' : 'Inactive'}</td>
-    //   <td>
-    //     <button class="status-button" data-question-id="${question.id}" data-status="${question.status ? 0 : 1}">${question.status ? 'Deactivate' : 'Activate'}</button>
-    //   </td>
-    // `;
-    //     questionTableBodyElement.appendChild(tableRow);
-    //   });
-    //
-    //   // Add event listeners for toggle buttons
-    //   document.querySelectorAll('.toggle-button').forEach(button => {
-    //     button.addEventListener('click', event => {
-    //       const questionId = event.target.dataset.questionId;
-    //       const questionTextElement = document.querySelector(`.question-text[data-question-id="${questionId}"]`);
-    //       questionTextElement.classList.toggle('hidden');
-    //     });
-    //   });
-    //
-    //   // Add event listeners for status buttons
-    //   document.querySelectorAll('.status-button').forEach(button => {
-    //     button.addEventListener('click', event => {
-    //       const questionId = event.target.dataset.questionId;
-    //       const status = event.target.dataset.status;
-    //       // Send AJAX request to update question status
-    //       fetch('', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ id: questionId, status: status })
-    //       })
-    //         .then(response => {
-    //           if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //           }
-    //           return response.json();
-    //         })
-    //         .then(data => {
-    //           // Update the question status in the table
-    //           const tableRow = document.querySelector(`tr[data-question-id="${questionId}"]`);
-    //           const statusCell = tableRow.querySelector('td:nth-child(5)');
-    //           statusCell.textContent = data.status ? 'Active' : 'Inactive';
-    //           event.target.textContent = data.status ? 'Deactivate' : 'Activate';
-    //         })
-    //         .catch(error => {
-    //           // ... (Your error handling with Swal) ...
-    //         });
-    //     });
-    //   });
-    //
-    //   // Render pagination links
-    //   renderPaginationLinks(data.meta);
-    // };
-
-    // ================ Render Pagination Links Function ================
-    // function renderPaginationLinks(meta) {
-    //   const paginationElement = document.getElementById('pagination');
-    //   paginationElement.innerHTML = '';
-    //
-    //   if (meta.prev_page_url) {
-    //     const prevLink = document.createElement('a');
-    //     prevLink.href = `javascript:fetchQuestions(${meta.current_page - 1})`;
-    //     prevLink.textContent = 'Previous';
-    //     paginationElement.appendChild(prevLink);
-    //   }
-    //
-    //   if (meta.next_page_url) {
-    //     const nextLink = document.createElement('a');
-    //     nextLink.href = `javascript:fetchQuestions(${meta.current_page + 1})`;
-    //     nextLink.textContent = 'Next';
-    //     paginationElement.appendChild(nextLink);
-    //   }
-    // };
-
-    // Call the fetchQuestions function when the page loads
-    // document.addEventListener('DOMContentLoaded', fetchQuestions);
   </script>
 
 @endsection

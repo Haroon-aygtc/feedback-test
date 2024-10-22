@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormInput = ({ type, name, placeholder, icon, required, onChange, value }) => {
+const FormInput = ({ type, name, placeholder, icon, required, onChange,onKeyDown, value }) => {
     return (
 
         <div className={`form-input-inner position-relative has-float-label ${required ? 'required' : ''}`}>
@@ -11,6 +11,7 @@ const FormInput = ({ type, name, placeholder, icon, required, onChange, value })
                 placeholder={placeholder}
                 className="form-control"
                 onChange={onChange}
+                onKeyDown={onKeyDown}
                 value={value}
             />
             <div className="icon-bg text-center">

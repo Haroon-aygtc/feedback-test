@@ -207,18 +207,30 @@ body {
 }
 
 
-
-.language-selected {
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.55) !important;
+.selected-language {
+    background-color: #b45309 !important; /* Darker yellow */
+    font-weight: bold;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5); /* Yellow glow */
+    position: relative !important;
+    z-index: 1;
+    transform: scale(1.05);
 }
 
-.language-button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
+.selected-language::after {
+    content: '✓';
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    background-color: #fbbf24 !important;
+    color: #78350f !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    font-size: 12px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /*  /* Responsive Footer Styles */
@@ -232,4 +244,14 @@ body {
     .social-icons a {
         margin-bottom: 5px; /* Space between icons */
     }
+}
+
+
+button.selected-language {
+    background-color: #b45309 !important;
+    /* ... other styles ... */
+}
+
+button.selected-language::after {
+    /* ... styles for the checkmark ... */
 }

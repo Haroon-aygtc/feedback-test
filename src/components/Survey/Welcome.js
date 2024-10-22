@@ -17,13 +17,8 @@ const Welcome = () => {
   };
 
   const handleStartSurvey = useCallback(() => {
-    startLoading();
-    // Simulate a shorter loading time (adjust as needed)
-    setTimeout(() => {
-      stopLoading();
-      setShowSurvey(true);
-    }, 2000); // Reduced to 2 seconds
-  }, [startLoading, stopLoading]);
+    setShowSurvey(true);
+  }, []); // Added an empty dependency array
 
   if (showSurvey) {
     return <SurveyForm />;
@@ -51,26 +46,29 @@ const WelcomeScreen = React.memo(
           <LogoSection />
           <div className="text-center mb-8"> {/* Simplified Content */}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 text-center mb-4 md:mb-8"
-                style={{lineHeight: '1.2'}}>
+              style={{ lineHeight: '1.2' }}>
 
-              <br className="hidden sm:block"/> {/* Line break for smaller screens */}
+              <br className="hidden sm:block" /> {/* Line break for smaller screens */}
               <span
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#CA8A04] to-[#F7B237] font-extrabold animate-text-shimmer">
-          Al Yalayis
-        </span>
-              <br className="hidden sm:block md:hidden lg:block"/>
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#CA8A04] to-[#F7B237] font-extrabold animate-text-shimmer">
+                Al Yalayis
+              </span>
+              <br className="hidden sm:block md:hidden lg:block" />
               <span className="block animate-fade-in-up">
-    Government Transaction Center
-  </span>
+                Government Transaction Center
+              </span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto">
               Your feedback is valuable to us. Please take a moment to share your experience.
             </p>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto mt-4">
+              Please select your preferred language to begin the survey.
+            </p>
           </div>
           <LanguageButtons
-              onLanguageSelect={handleLanguageSelection}
-              selectedLanguage={selectedLanguage}
-              onStartSurvey={handleStartSurvey}
+            onLanguageSelect={handleLanguageSelection}
+            selectedLanguage={selectedLanguage}
+            onStartSurvey={handleStartSurvey}
           />
         </div>
       </div>
@@ -79,11 +77,11 @@ const WelcomeScreen = React.memo(
 );
 
 const LogoSection = React.memo(() => (
-    <img
-        src={logo}
-        alt="Al Yalayis Logo"
-        className="max-w-[250px] sm:max-w-[300px] md:max-w-[350px] mb-6 md:mb-12 animate-fade-in" // Reduced max-width
-    />
+  <img
+    src={logo}
+    alt="Al Yalayis Logo"
+    className="max-w-[250px] sm:max-w-[300px] md:max-w-[350px] mb-6 md:mb-12 animate-fade-in" // Reduced max-width
+  />
 ));
 
 

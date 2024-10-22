@@ -595,167 +595,296 @@
   <div class="col-12">
     <div class="card">
       <div class="table-responsive">
-        <table class="table">
-          <thead class="table-light">
+        <div class="table-responsive text-nowrap">
+          <table class="table table-striped table-hover" id="question-table">
+            <thead>
             <tr>
-              <th class="text-truncate">User</th>
-              <th class="text-truncate">Email</th>
-              <th class="text-truncate">Role</th>
-              <th class="text-truncate">Age</th>
-              <th class="text-truncate">Salary</th>
-              <th class="text-truncate">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Jordan Stevenson</h6>
-                    <small class="text-truncate">@amiccoo</small>
-                  </div>
+              <th colspan="5" class="text-center">
+                <div class="btn-group" role="group" aria-label="Language Toggle">
+                  <button type="button" class="lang-toggle btn btn-outline-primary active" data-lang="en">English</button>
+                  <button type="button" class="lang-toggle btn btn-outline-primary" data-lang="ar">Arabic</button>
                 </div>
-              </td>
-              <td class="text-truncate">susanna.Lind57@gmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-laptop mdi-24px text-danger me-1"></i> Admin</td>
-              <td class="text-truncate">24</td>
-              <td class="text-truncate">34500$</td>
-              <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
+              </th>
             </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Benedetto Rossiter</h6>
-                    <small class="text-truncate">@brossiter15</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">estelle.Bailey10@gmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-pencil-outline text-info mdi-24px me-1"></i> Editor</td>
-              <td class="text-truncate">29</td>
-              <td class="text-truncate">64500$</td>
-              <td><span class="badge bg-label-success rounded-pill">Active</span></td>
+            <tr id="en" data-question-id="en">
+              <th data-question-id="text-en">Question Text</th>
+              <th data-question-id="title-en">Title</th>
+              <th data-question-id="description-en">Description</th>
+              <th data-question-id="type-en">Type</th>
+              <th data-question-id="actions-en">Actions</th>
             </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/2.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Bentlee Emblin</h6>
-                    <small class="text-truncate">@bemblinf</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">milo86@hotmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-cog-outline text-warning mdi-24px me-1"></i> Author</td>
-              <td class="text-truncate">44</td>
-              <td class="text-truncate">94500$</td>
-              <td><span class="badge bg-label-success rounded-pill">Active</span></td>
+            <tr id="ar" class="d-none" data-question-id="ar">
+              <th data-question-id="text-ar">سؤال</th>
+              <th data-question-id="title-ar">عنوان</th>
+              <th data-question-id="description-ar">وصف</th>
+              <th data-question-id="type-ar">نوع</th>
+              <th data-question-id="actions-ar">إجراءات</th>
             </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/5.png')}}" alt="Avatar" class="rounded-circle">
+            </thead>
+            <tbody class="table-border-bottom-0" id="question-table-body">
+            @foreach($questions as $question)
+              <tr data-question-id="{{ $question->id }}-en">
+                <td>{{ $question->translations->firstWhere('locale', 'en')->question_text }}</td>
+                <td>{{ $question->translations->firstWhere('locale', 'en')->title }}</td>
+                <td>{{ Str::limit($question->translations->firstWhere('locale', 'en')->description, 30) }}</td>
+                <td>{{ $question->type }}</td>
+                <td>
+                  <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-outline-secondary view-question-modal" data-question-id="{{ $question->id }}" title="View Translations">
+                      <i class="fa fa-language"></i>
+                    </button>
+                    @if ($question->type === 'radio')
+                      <button type="button" class="btn btn-outline-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}" title="View Options">
+                        <i class="fa fa-list-ul"></i>
+                      </button>
+                    @endif
                   </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Bertha Biner</h6>
-                    <small class="text-truncate">@bbinerh</small>
+                </td>
+              </tr>
+              <tr class="d-none" data-question-id="{{ $question->id }}-ar">
+                <td>{{ $question->translations->firstWhere('locale', 'ar')->question_text }}</td>
+                <td>{{ $question->translations->firstWhere('locale', 'ar')->title }}</td>
+                <td>{{ Str::limit($question->translations->firstWhere('locale', 'ar')->description, 30) }}</td>
+                <td>{{ $question->type }}</td>
+                <td>
+                  <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-outline-secondary view-question-modal" data-toggle="modal" data-target="#question-modal-{{ $question->id }}-ar" data-question-id="{{ $question->id }}" title="عرض الترجمات">
+                      <i class="fa fa-language"></i>
+                    </button>
+                    @if ($question->type === 'radio')
+                      <button type="button" class="btn btn-outline-primary view-options-modal" data-toggle="modal" data-target="#option-modal-{{ $question->id }}" title="عرض الخيارات">
+                        <i class="fa fa-list-ul"></i>
+                      </button>
+                    @endif
                   </div>
-                </div>
-              </td>
-              <td class="text-truncate">lonnie35@hotmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-pencil-outline text-info mdi-24px me-1"></i> Editor</td>
-              <td class="text-truncate">19</td>
-              <td class="text-truncate">4500$</td>
-              <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/4.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Beverlie Krabbe</h6>
-                    <small class="text-truncate">@bkrabbe1d</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">ahmad_Collins@yahoo.com</td>
-              <td class="text-truncate"><i class="mdi mdi-chart-donut mdi-24px text-success me-1"></i> Maintainer</td>
-              <td class="text-truncate">22</td>
-              <td class="text-truncate">10500$</td>
-              <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/7.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Bradan Rosebotham</h6>
-                    <small class="text-truncate">@brosebothamz</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">tillman.Gleason68@hotmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-pencil-outline text-info mdi-24px me-1"></i> Editor</td>
-              <td class="text-truncate">50</td>
-              <td class="text-truncate">99500$</td>
-              <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/6.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Bree Kilday</h6>
-                    <small class="text-truncate">@bkildayr</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">otho21@gmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber</td>
-              <td class="text-truncate">23</td>
-              <td class="text-truncate">23500$</td>
-              <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-            </tr>
-            <tr class="border-transparent">
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm me-3">
-                    <img src="{{asset('assets/img/avatars/1.png')}}" alt="Avatar" class="rounded-circle">
-                  </div>
-                  <div>
-                    <h6 class="mb-0 text-truncate">Breena Gallemore</h6>
-                    <small class="text-truncate">@bgallemore6</small>
-                  </div>
-                </div>
-              </td>
-              <td class="text-truncate">florencio.Little@hotmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber</td>
-              <td class="text-truncate">33</td>
-              <td class="text-truncate">20500$</td>
-              <td><span class="badge bg-label-secondary rounded-pill">Inactive</span></td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+              </tr>
+            @endforeach
+            </tbody>
+          </table>
+          <div class="pagination-wrapper">
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <!--/ Data Tables -->
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js (for tooltip and popovers) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap 4 JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const viewQuestionButtons = document.querySelectorAll('.view-question-modal');
+    const toggleLanguageButton = document.getElementById('toggle-language');
+    const table = document.querySelector('table');
+    const languageIcon = document.getElementById('language-icon');
+
+    let currentLanguage = 'en';
+
+    // Function to toggle table rows and headers based on language
+    function toggleTableLanguage(language) {
+      const otherLang = (language === 'en') ? 'ar' : 'en';
+
+      document.querySelectorAll(`tr[data-question-id$="-${language}"]`).forEach(row => {
+        row.classList.remove('d-none');
+      });
+      document.querySelectorAll(`tr[data-question-id$="-${otherLang}"]`).forEach(row => {
+        row.classList.add('d-none');
+      });
+
+      document.getElementById(language).classList.remove('d-none');
+      document.getElementById(otherLang).classList.add('d-none');
+
+      table.style.direction = (language === 'en') ? 'ltr' : 'rtl';
+    }
+
+    // Function to toggle rows
+    function toggleRows(language) {
+      const englishRows = document.querySelectorAll('tr[data-question-id$="-en"]');
+      const arabicRows = document.querySelectorAll('tr[data-question-id$="-ar"]');
+
+      englishRows.forEach(row => {
+        row.classList.toggle('d-none', language === 'ar');
+      });
+
+      arabicRows.forEach(row => {
+        row.classList.toggle('d-none', language === 'en');
+      });
+    }
+
+    // Event listener for the toggle language button
+    toggleLanguageButton.addEventListener('click', function() {
+      currentLanguage = (currentLanguage === 'en') ? 'ar' : 'en';
+      toggleTableLanguage(currentLanguage);
+      toggleRows(currentLanguage);
+
+      // Update button text/icon
+      this.dataset.language = currentLanguage;
+      languageIcon.classList.toggle('fa-flag', currentLanguage === 'ar');
+      languageIcon.classList.toggle('fa-globe', currentLanguage === 'en');
+      this.title = (currentLanguage === 'en') ? 'Switch to Arabic' : 'Switch to English';
+    });
+
+    // Event listener for individual question buttons
+    viewQuestionButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const questionId = this.dataset.questionId;
+        const englishRow = document.querySelector(`tr[data-question-id="${questionId}-en"]`);
+        const arabicRow = document.querySelector(`tr[data-question-id="${questionId}-ar"]`);
+        const arabicHeader = document.querySelector(`th[data-question-id="ar"]`);
+        const englishHeader = document.querySelector(`th[data-question-id="en"]`);
+
+        // Check if both rows exist
+        if (englishRow && arabicRow) {
+          if (englishRow.classList.contains('d-none')) {
+            englishRow.classList.remove('d-none');
+            arabicRow.classList.add('d-none');
+
+            if (englishHeader) {
+              englishHeader.classList.remove('d-none');
+            }
+            if (arabicHeader) {
+              arabicHeader.classList.add('d-none');
+            }
+          } else {
+            englishRow.classList.add('d-none');
+            arabicRow.classList.remove('d-none');
+
+            if (arabicHeader) {
+              arabicHeader.classList.remove('d-none');
+            }
+            if (englishHeader) {
+              englishHeader.classList.add ('d-none');
+            }
+          }
+        } else {
+          console.error(`Rows for question ID ${questionId} not found.`);
+        }
+      });
+    });
+  });
+
+  // ================ Fetch Questions Function ================
+  // function fetchQuestions(page = 1) {
+  //   fetch('#' + `?page=${page}`)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       const questions = data.data;
+  //       renderQuestionList(questions);
+  //     })
+  //     .then(data => {
+  //       const questions = data.data;
+  //       renderQuestionList(questions);
+  //     })
+  //     .catch(error => {
+  //
+  //     });
+  // };
+ {{--// {{ route('admin.questions.index') }}   ---    {{ route('admin.questions.updateStatus') }} --}}
+  // ================ Render Question List Function ================
+  // function renderQuestionList(data) {
+  //   const questionTableBodyElement = document.getElementById('question-table-body');
+  //   questionTableBodyElement.innerHTML = '';
+  //
+  //   data.data.forEach(question => {
+  //     const tableRow = document.createElement('tr');
+  //     tableRow.innerHTML = `
+  //   <td>${question.id}</td>
+  //   <td>
+  //     <button class="toggle-button" data-question-id="${question.id}">Toggle</button>
+  //     <div class="question-text" data-question-id="${question.id}">
+  //       <p>AR: ${question.text_ar}</p>
+  //       <p>EN: ${question.text_en}</p>
+  //     </div>
+  //   </td>
+  //   <td>${question.category.name}</td>
+  //   <td>${question.type.name}</td>
+  //   <td>${question.status ? 'Active' : 'Inactive'}</td>
+  //   <td>
+  //     <button class="status-button" data-question-id="${question.id}" data-status="${question.status ? 0 : 1}">${question.status ? 'Deactivate' : 'Activate'}</button>
+  //   </td>
+  // `;
+  //     questionTableBodyElement.appendChild(tableRow);
+  //   });
+  //
+  //   // Add event listeners for toggle buttons
+  //   document.querySelectorAll('.toggle-button').forEach(button => {
+  //     button.addEventListener('click', event => {
+  //       const questionId = event.target.dataset.questionId;
+  //       const questionTextElement = document.querySelector(`.question-text[data-question-id="${questionId}"]`);
+  //       questionTextElement.classList.toggle('hidden');
+  //     });
+  //   });
+  //
+  //   // Add event listeners for status buttons
+  //   document.querySelectorAll('.status-button').forEach(button => {
+  //     button.addEventListener('click', event => {
+  //       const questionId = event.target.dataset.questionId;
+  //       const status = event.target.dataset.status;
+  //       // Send AJAX request to update question status
+  //       fetch('', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({ id: questionId, status: status })
+  //       })
+  //         .then(response => {
+  //           if (!response.ok) {
+  //             throw new Error('Network response was not ok');
+  //           }
+  //           return response.json();
+  //         })
+  //         .then(data => {
+  //           // Update the question status in the table
+  //           const tableRow = document.querySelector(`tr[data-question-id="${questionId}"]`);
+  //           const statusCell = tableRow.querySelector('td:nth-child(5)');
+  //           statusCell.textContent = data.status ? 'Active' : 'Inactive';
+  //           event.target.textContent = data.status ? 'Deactivate' : 'Activate';
+  //         })
+  //         .catch(error => {
+  //           // ... (Your error handling with Swal) ...
+  //         });
+  //     });
+  //   });
+  //
+  //   // Render pagination links
+  //   renderPaginationLinks(data.meta);
+  // };
+
+  // ================ Render Pagination Links Function ================
+  // function renderPaginationLinks(meta) {
+  //   const paginationElement = document.getElementById('pagination');
+  //   paginationElement.innerHTML = '';
+  //
+  //   if (meta.prev_page_url) {
+  //     const prevLink = document.createElement('a');
+  //     prevLink.href = `javascript:fetchQuestions(${meta.current_page - 1})`;
+  //     prevLink.textContent = 'Previous';
+  //     paginationElement.appendChild(prevLink);
+  //   }
+  //
+  //   if (meta.next_page_url) {
+  //     const nextLink = document.createElement('a');
+  //     nextLink.href = `javascript:fetchQuestions(${meta.current_page + 1})`;
+  //     nextLink.textContent = 'Next';
+  //     paginationElement.appendChild(nextLink);
+  //   }
+  // };
+
+  // Call the fetchQuestions function when the page loads
+  // document.addEventListener('DOMContentLoaded', fetchQuestions);
+</script>
+
+
+
+
 @endsection

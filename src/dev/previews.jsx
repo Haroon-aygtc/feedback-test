@@ -4,6 +4,7 @@ import {PaletteTree} from './palette'
 import App from "../App.js";
 import SurveyForm from "../components/Survey/SurveyForm.js";
 import RatingComponent from "../components/Survey/components/RatingComponent.js";
+import SurveyStepPanel from '../components/Survey/SurveyStepPanel.js';
 
 const ComponentPreviews = () => {
     return (
@@ -20,6 +21,9 @@ const ComponentPreviews = () => {
             <ComponentPreview path="/RatingComponent">
                 <RatingComponent/>
             </ComponentPreview>
+          <ComponentPreview path="/SurveyStepPanel">
+            <SurveyStepPanel />
+          </ComponentPreview>
         </Previews>
     )
 }
